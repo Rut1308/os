@@ -1,0 +1,88 @@
+#include<sys/types.h>
+#include<unistd.h>
+#include<stdio.h>
+
+void main()
+{
+  pid_t processid;
+  int a = 10;
+  int n;
+  printf("\nInitial value of a is : %d \n\n",a);
+  printf("\nEnter the Size of array : ");
+  scanf("%d",&n);
+  
+  int arr[n];
+  for(int i =0;i<n;i++)
+  {
+    printf("\nEnter the array elements: ");
+    scanf("%d",&arr[i]);
+  }
+  processid = fork();
+  
+  if(processid == 0)
+  {
+    printf("\nHello! I am the child process,\n");
+    printf("\nMy process id : %d\n\n",getpid());
+    printf("\nMy parent process id: %d\n\n",getppid());
+    a -= 7;
+    printf("a: %d\n\n",a);
+    //ascending order
+    for(int i =0;i<n-1;i++)
+    {
+      int flag = 0;
+      for(int j=0;j<n-i-1;j++)
+      {
+        if(arr[j] > arr[j+1])
+        {
+        int temp;
+        flag = 1;
+        temp = arr[j];
+        arr[j] = arr[j+1];
+        arr[j+1] = temp;
+        }
+      }
+      if(flag = 0)
+      break;
+    }
+    printf("\nAscending order in child class : \n\n");
+    for(int i=0;i<n;i++)
+    {
+      printf("%d\t",arr[i]);
+    }
+  }
+  else 
+  {
+    printf("\nHello! I am the parent process,\n");
+    printf("\nMy process id : %d\n\n",getpid());
+    printf("\nMy parent process id: %d\n\n",getppid());
+    printf("\nvalue of processid in context of parent: %d\n\n",processid);
+    a += 5;
+    printf("a: %d\n\n",a);
+    printf("\nDescending order in parent class : \n\n");
+    for(int i =0;i<n-1;i++)
+    {
+      int flag = 0;
+      for(int j=0;j<n-1;j++)
+      {
+        if(arr[j] < arr[j+1])
+        {
+        int temp;
+        flag = 1;
+        temp = arr[j];
+        arr[j] = arr[j+1];
+        arr[j+1] = temp;
+        }
+      }
+      if(flag = 0)
+      break;
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+      printf("%d\t",arr[i]);
+    }
+  }
+}
+  
+        
+    
