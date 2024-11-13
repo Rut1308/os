@@ -1,0 +1,177 @@
+#include<stdlib.h>
+
+#include<stdio.h>
+
+int main()
+
+{
+
+ int n,initialHeadPosition,totalseektime=0,disksize,direction;
+
+ 
+
+ printf("\nEnter the number of requests:");
+
+ scanf("%d",&n);
+
+ 
+
+ int requests[n];
+
+ printf("\nEnter the sequence:");
+
+ for(int i=0;i<n;i++)
+
+ {
+
+  scanf("%d",&requests[i]);
+
+ }
+
+ printf("\nEnter the initial head position:");
+
+ scanf("%d",&initialHeadPosition);
+
+ 
+
+ printf("\nEnter the disksize:");
+
+ scanf("%d",&disksize);
+
+  
+
+ printf("\nEnter the direction(0 for left 1 for right):");
+
+ scanf("%d",&direction);
+
+ 
+
+ for(int i=0;i<n-1;i++)
+
+ {
+
+  for(int j=i+1;j<n;j++)
+
+  {
+
+   if(requests[i]>requests[j])
+
+   {
+
+    int temp=requests[i];
+
+    requests[i]=requests[j];
+
+    requests[j]=temp;
+
+   }
+
+  }
+
+ }
+
+ int currentPosition=initialHeadPosition;
+
+ int index;
+
+ for(index=0;index<n;index++)
+
+ {
+
+  if(requests[index]>currentPosition)
+
+  {
+
+   break;
+
+  }
+
+ }
+
+ printf("\nSequence is:");
+
+ if(direction==1)
+
+ {
+
+  for(int i=index;i<n;i++)
+
+  {
+
+   printf("%d ",requests[i]);
+
+   totalseektime+=abs(currentPosition-requests[i]);
+
+   currentPosition=requests[i];
+
+  }
+
+  if(currentPosition!=disksize-1)
+
+  {
+
+   totalseektime+=abs(currentPosition-(disksize-1));
+
+   currentPosition=disksize-1;
+
+  }
+
+  for(int i=index-1;i>=0;i--)
+
+  {
+
+   printf("%d ",requests[i]);
+
+   totalseektime+=abs(currentPosition-requests[i]);
+
+   currentPosition=requests[i]; 
+
+  }
+
+ } 
+
+  else
+
+  {
+
+   for(int i=index-1;i>=0;i--)
+
+   {
+
+    printf("%d ",requests[i]);
+
+   totalseektime+=abs(currentPosition-requests[i]);
+
+   currentPosition=requests[i]; 
+
+   }
+
+   if(currentPosition!=0)
+
+   {
+
+    totalseektime+=abs(currentPosition-0);
+
+   currentPosition=0;
+
+   }
+
+   for(int i=index;i<n;i++)
+
+  {
+
+   printf("%d ",requests[i]);
+
+   totalseektime+=abs(currentPosition-requests[i]);
+
+   currentPosition=requests[i];
+
+  }
+
+  }
+
+  printf("\nTotal Seek time:%d",totalseektime);
+
+  
+
+ }        
