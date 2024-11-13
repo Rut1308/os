@@ -1,0 +1,80 @@
+//client
+#include<stdio.h>
+
+#include<unistd.h>
+
+#include<fcntl.h>
+
+#include<string.h>
+
+#include<sys/stat.h>
+
+
+
+int main()
+
+{
+
+ const char *myfifo="/tmp/myfifo";
+
+ mkfifo(myfifo,0666);
+
+ char str2[80];
+
+ while(1)
+
+ {
+
+  int fd=open(myfifo,O_WRONLY);
+
+  fgets(str2,sizeof(str2),stdin);
+
+  write(fd,str2,strlen(str2)+1);
+
+  close(fd);
+
+ }
+
+ return 0;
+
+}   
+//server
+#include<stdio.h>
+
+#include<unistd.h>
+
+#include<fcntl.h>
+
+#include<string.h>
+
+#include<sys/stat.h>
+
+
+
+int main()
+
+{
+
+ const char *myfifo="/tmp/myfifo";
+
+ mkfifo(myfifo,0666);
+
+ char str1[80];
+
+ while(1)
+
+ {
+
+  int fd=open(myfifo,O_RDONLY);
+
+  read(fd,str1,sizeof(str1));
+
+  printf("User:%s\n",str1);
+
+  close(fd);
+
+ }
+
+ return 0;
+
+}   
