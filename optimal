@@ -1,0 +1,165 @@
+#include<stdio.h>
+
+int main()
+
+{
+
+ int n,frames,pagefaults=0;
+
+ printf("\nEnter the frame size:");
+
+ scanf("%d",&frames);
+
+ if(frames<3)
+
+ {
+
+  printf("Atleast 3!");
+
+  return 1;
+
+ }
+
+ 
+
+ printf("\nEnter the number of pages:");
+
+ scanf("%d",&n);
+
+ 
+
+ int pages[n],frame[frames];
+
+ for(int i=0;i<frames;i++)
+
+ frame[i]=-1;
+
+ 
+
+ printf("\nEnter the page sequence:");
+
+ for(int i=0;i<n;i++)
+
+ {
+
+  scanf("%d",&pages[i]);
+
+ }
+
+ for(int i=0;i<n;i++)
+
+ {
+
+   int found=0;
+
+  for(int j=0;j<frames;j++)
+
+  {
+
+  if(frame[j]==pages[i])
+
+  {
+
+   found=1;
+
+   break;
+
+  }
+
+ }
+
+ if(!found)
+
+ {
+
+  int optimalIndex=-1;
+
+  int farthest=-1;
+
+  
+
+  for(int j=0;j<frames;j++)
+
+  {
+
+   if(frame[j]==-1)
+
+   {
+
+    optimalIndex=j;
+
+    break;
+
+   }
+
+  
+
+  int nextUse=n;
+
+  for(int k=i+1;k<n;k++)
+
+  {
+
+   if(pages[k]==frame[j])
+
+   {
+
+    nextUse=k;
+
+    break;
+
+   }
+
+  }
+
+  if(nextUse>farthest)
+
+  {
+
+   farthest=nextUse;
+
+   optimalIndex=j;
+
+  }
+
+ }
+
+ frame[optimalIndex]=pages[i];
+
+ pagefaults++;
+
+}
+
+printf("\nFrames:");
+
+for(int j=0;j<frames;j++)
+
+{
+
+ if(frame[j]!=-1)
+
+ printf("%d ",frame[j]);
+
+ else
+
+ printf("-");
+
+}
+
+printf("\n");
+
+}
+
+printf("\nTotal Page Faults:%d\n",pagefaults);
+
+return 0;
+
+}    
+
+     
+
+       
+
+      
+
+ 
