@@ -1,0 +1,85 @@
+#include<stdlib.h>
+
+#include<stdio.h>
+
+
+
+int main()
+
+{
+
+ int n,initialHeadPosition,totalseektime=0;
+
+ 
+
+ printf("\nEnter the number of disk sequence:");
+
+ scanf("%d",&n);
+
+ 
+
+ int requests[n];
+
+ printf("\nEnter the disk sequence:");
+
+ for(int i=0;i<n;i++)
+
+ {
+
+  scanf("%d",&requests[i]);
+
+ }
+
+ 
+
+printf("\nEnter the initial Head Position:");
+
+scanf("%d",&initialHeadPosition);
+
+
+
+int currentPosition=initialHeadPosition;
+
+printf("\nSequence is:");
+
+for(int i=0;i<n;i++)
+
+{
+
+ int closestIndex=1;
+
+ int shortestSeek=1e9;
+
+ for(int j=0;j<n;j++)
+
+ {
+
+  int seekdistance=abs(requests[j]-currentPosition);
+
+  if(requests[j]!=1e9 && seekdistance<shortestSeek)
+
+  {
+
+   shortestSeek=seekdistance;
+
+   closestIndex=j;
+
+  }
+
+ }
+
+ totalseektime+=shortestSeek;
+
+ currentPosition=requests[closestIndex];
+
+ printf("%d ",currentPosition);
+
+ requests[closestIndex]=1e9;
+
+}
+
+printf("\nTotal Seek Time:%d",totalseektime);
+
+return 0;
+
+}    
