@@ -1,0 +1,105 @@
+while true;
+
+do
+
+echo -e "\n1.Insert record\n2.Display record\n3.Search record\n4.Delete record\n5.Modify record\n6.Exit"
+
+echo "Enter your choice"
+
+read ch;
+
+
+
+case $ch in
+
+  1)
+
+    echo "Enter the employee no"
+
+    read eno
+
+    echo "Enter the employee name"
+
+    read ename
+
+    echo "Enter the employee number"
+
+    read eno
+
+    echo "Enter the employee city"
+
+    read ecity
+
+    echo -e"$eno\t$ename\t$eno\t\t$ecity">>emp1.txt
+
+    ;;
+
+    
+
+  2)
+
+    cat emp1.txt
+
+    ;;
+
+    
+
+  3)
+
+    echo "Enter the employee name to be searched"
+
+    read ename
+
+    grep  "$ename" emp1.txt  
+
+    ;;
+
+    
+
+  4)
+
+    echo "Enter the employee name to be deleted"
+
+    read ename
+
+    grep -v "$ename" emp1.txt>temp.txt
+
+    mv temp.txt emp1.txt
+
+    ;;
+
+    
+
+  5)
+
+    echo "Enter the employee name to be modified"
+
+    read ename
+
+    echo "Enter new name"
+
+    read name
+
+    sed -i "s/$ename /$name/g" emp1.txt
+
+    ;;
+
+    
+
+  6)
+
+    exit
+
+    ;;
+
+    *)
+
+    echo "Invalid choice ,please try again"
+
+    ;;
+
+    
+
+    esac
+
+    done      
